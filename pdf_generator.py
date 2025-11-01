@@ -6,8 +6,8 @@ import os
 import arabic_reshaper
 from bidi.algorithm import get_display
 
-# إعدادات الخطوط
-FONT_ARABIC = 'Arial'  # خط يدعم العربية (متوفر في ويندوز وماك)
+
+FONT_ARABIC = 'Arial'  
 FONT_DEFAULT = 'Helvetica'
 
 class PDF(FPDF):
@@ -73,7 +73,6 @@ class PDF(FPDF):
         col_widths = [page_width*0.45, page_width*0.15, page_width*0.20, page_width*0.20]
         line_height = self.font_size * 2
         
-        # عناوين الأعمدة
         headers = [
             self.tr("item_header"),
             self.tr("quantity_short"),
@@ -89,7 +88,6 @@ class PDF(FPDF):
             self.cell(col_widths[i], line_height, header, border=1, align='C')
         self.ln(line_height)
         
-        # محتوى الجدول
         self.set_font(FONT_ARABIC if self.current_lang == 'ar' else FONT_DEFAULT, '', 10)
         for item in items:
             name = self.process_text(str(item.get('name', '')))
@@ -130,9 +128,7 @@ def generate_invoice_pdf(save_path, invoice_data, lang_translations, current_lan
         print(f"خطأ في إنشاء الفاتورة: {e}")
         return False
 
-# مثال للاستخدام
 if __name__ == '__main__':
-    # بيانات عربية
     ar_translations = {
         "invoice_title": "فاتورة",
         "invoice_number": "رقم الفاتورة",
@@ -145,7 +141,6 @@ if __name__ == '__main__':
         "page_num": "صفحة"
     }
     
-    # بيانات إنجليزية
     en_translations = {
         "invoice_title": "Invoice",
         "invoice_number": "Invoice Number",
@@ -158,7 +153,6 @@ if __name__ == '__main__':
         "page_num": "Page"
     }
     
-    # بيانات الفاتورة
     invoice_data = {
         "sale_id": 1001,
         "sale_date": datetime.now().isoformat(),
@@ -169,8 +163,6 @@ if __name__ == '__main__':
         ]
     }
     
-    # إنشاء الفاتورة العربية
     generate_invoice_pdf("invoice_ar.pdf", invoice_data, ar_translations, 'ar')
     
-    # إنشاء الفاتورة الإنجليزية
     generate_invoice_pdf("invoice_en.pdf", invoice_data, en_translations, 'en')
