@@ -75,6 +75,6 @@ This application helps manage inventory, sales, and reports for a phone store. I
 
 ## Developer
 
-Developed by Youssef (as requested).
+Developed by youcef .
 
 
